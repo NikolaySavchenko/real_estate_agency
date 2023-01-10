@@ -46,7 +46,7 @@ class Flat(models.Model):
         null=True,
         blank=True,
         db_index=True)
-    new_building = models.BooleanField('True — новостройка, False — старое здание',
+    new_building = models.BooleanField('Да — новостройка, Нет — старое здание',
                                        blank=True, null=True, db_index=True)
 
     def __str__(self):
