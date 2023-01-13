@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import *
 
-
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ('owner', 'town', 'address',)
     readonly_fields = ('created_at',)
