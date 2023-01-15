@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import *
 
+
 class OwnerInline(admin.TabularInline):
     model = Owner.flats.through
     raw_id_fields = ('owner',)
@@ -21,11 +22,11 @@ class FlatAdmin(admin.ModelAdmin):
 class ComplaintAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', 'flat',)
 
+
 class OwnerAdmin(admin.ModelAdmin):
     search_fields = ('full_name',)
-    list_display = ('full_name', )
+    list_display = ('full_name',)
     raw_id_fields = ('flats',)
-
 
 
 admin.site.register(Flat, FlatAdmin)
