@@ -2,20 +2,14 @@
 
 from django.db import migrations
 
+
 def definition_new_buildings(apps, schema_editor):
     advertisements = apps.get_model('property', 'Flat')
-    for advertisement in advertisements.objects.all():
-        if advertisement.construction_year >= 2015:
-            advertisement.new_building = True
-        elif advertisement.construction_year < 2015:
-            advertisement.new_building = False
-        else:
-            advertisement.new_building = None
-        advertisement.save()
+    advertisements.objects.filter(construction_year__gte=2015).update(new_building=True)
+    advertisements.objects.filter(construction_year__lt=2015).update(new_building=False)
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('property', '0004_auto_20230109_2205'),
     ]
