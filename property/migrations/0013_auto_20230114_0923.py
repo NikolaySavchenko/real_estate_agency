@@ -6,7 +6,8 @@ from django.db import migrations
 def copy_flat_to_owner(apps, schema_editor):
     advertisements = apps.get_model('property', 'Flat')
     owner = apps.get_model('property', 'Owner')
-    for advertisement in advertisements.objects.all():
+    advertisements_set = advertisements.objects.all()
+    for advertisement in advertisements_set.iterator():
         owner.objects.get_or_create(full_name=advertisement.owner,
                                     phonenumber=advertisement.owners_phonenumber,
                                     pure_phone=advertisement.owner_pure_phone)

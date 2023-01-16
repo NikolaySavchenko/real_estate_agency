@@ -6,12 +6,11 @@ import phonenumbers
 
 def parse_phone_numbers(apps, schema_editor):
     advertisements = apps.get_model('property', 'Flat')
-    for advertisement in advertisements.objects.all():
+    advertisements_set = advertisements.objects.all()
+    for advertisement in advertisements_set.iterator():
         phone_number = phonenumbers.parse(advertisement.owners_phonenumber, 'RU')
         if phonenumbers.is_valid_number(phone_number):
             advertisement.owner_pure_phone = phone_number
-        else:
-            advertisement.owner_pure_phone = None
         advertisement.save()
 
 

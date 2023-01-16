@@ -2,21 +2,20 @@
 
 from django.db import migrations
 
+
 def relations_flat_owner(apps, schema_editor):
     advertisements = apps.get_model('property', 'Flat')
     owners = apps.get_model('property', 'Owner')
-    for advertisement in advertisements.objects.all():
+    advertisements_set = advertisements.objects.all()
+    for advertisement in advertisements_set.iterator():
         flat_owners = owners.objects.filter(full_name=advertisement.owner,
-                                    phonenumber=advertisement.owners_phonenumber,
-                                    pure_phone=advertisement.owner_pure_phone)
-        for flat_owner in flat_owners:
+                                            phonenumber=advertisement.owners_phonenumber,
+                                            pure_phone=advertisement.owner_pure_phone)
+        for flat_owner in flat_owners.iterator():
             flat_owner.flats.add(advertisement)
 
 
-
-
 class Migration(migrations.Migration):
-
     dependencies = [
         ('property', '0015_auto_20230114_1525'),
     ]
