@@ -11,8 +11,7 @@ def relations_flat_owner(apps, schema_editor):
         flat_owners = owners.objects.filter(full_name=advertisement.owner,
                                             phonenumber=advertisement.owners_phonenumber,
                                             pure_phone=advertisement.owner_pure_phone)
-        for flat_owner in flat_owners.iterator():
-            flat_owner.flats.add(advertisement)
+        flat_owners.flats.add(advertisement)
 
 
 class Migration(migrations.Migration):
